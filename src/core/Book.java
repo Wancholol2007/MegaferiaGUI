@@ -34,5 +34,33 @@ public abstract class Book {
         }
         this.publisher.addBook(this);
     }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public ArrayList<Author> getAuthors() {
+        return authors;
+    }
+
+    public String getIsbn() {
+        return isbn;
+    }
+
+    public String getGenre() {
+        return genre;
+    }
+
+    public String getFormat() {
+        return format;
+    }
+
+    public double getValue() {
+        return value;
+    }
+
+    public Publisher getPublisher() {
+        return publisher;
+    }
     
 }

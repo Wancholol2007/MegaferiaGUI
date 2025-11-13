@@ -1454,17 +1454,59 @@ public class MegaferiaFrame extends javax.swing.JFrame {
     private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton15ActionPerformed
         // TODO add your handling code here:
         String search = jComboBox9.getItemAt(jComboBox9.getSelectedIndex());
+        
+        DefaultTableModel model = (DefaultTableModel) jTable4.getModel();
+        model.setRowCount(0);
+        
         if (search.equals("Libros Impresos")) {
-            
+            for (Book book : this.books) {
+                if (book instanceof PrintedBook printedBook) {
+                    String authors = printedBook.getAuthors().get(0).getFullname();
+                    for (int i = 1; i < printedBook.getAuthors().size(); i++) {
+                        authors += (", " + printedBook.getAuthors().get(i).getFullname());
+                    }
+                    model.addRow(new Object[]{printedBook.getTitle(), authors, printedBook.getIsbn(), printedBook.getGenre(), printedBook.getFormat(), printedBook.getValue(), printedBook.getPublisher().getName(), printedBook.getCopies(), printedBook.getPages(), "-", "-", "-"});
+                }
+            }
         }
         if (search.equals("Libros Digitales")) {
-            
+            for (Book book : this.books) {
+                if (book instanceof DigitalBook digitalBook) {
+                    String authors = digitalBook.getAuthors().get(0).getFullname();
+                    for (int i = 1; i < digitalBook.getAuthors().size(); i++) {
+                        authors += (", " + digitalBook.getAuthors().get(i).getFullname());
+                    }
+                    model.addRow(new Object[]{digitalBook.getTitle(), authors, digitalBook.getIsbn(), digitalBook.getGenre(), digitalBook.getFormat(), digitalBook.getValue(), digitalBook.getPublisher().getName(), "-", "-", digitalBook.hasHyperlink() ? digitalBook.getHyperlink() : "No", "-", "-"});
+                }
+            }
         }
         if (search.equals("Audiolibros")) {
-            
+            for (Book book : this.books) {
+                if (book instanceof Audiobook audiobook) {
+                    String authors = audiobook.getAuthors().get(0).getFullname();
+                    for (int i = 1; i < audiobook.getAuthors().size(); i++) {
+                        authors += (", " + audiobook.getAuthors().get(i).getFullname());
+                    }
+                    model.addRow(new Object[]{audiobook.getTitle(), authors, audiobook.getIsbn(), audiobook.getGenre(), audiobook.getFormat(), audiobook.getValue(), audiobook.getPublisher().getName(), "-", "-", "-", audiobook.getNarrador().getFullname(), audiobook.getDuration()});
+                }
+            }
         }
         if (search.equals("Todos los Libros")) {
-            
+            for (Book book : this.books) { 
+                String authors = book.getAuthors().get(0).getFullname();
+                for (int i = 1; i < book.getAuthors().size(); i++) {
+                    authors += (", " + book.getAuthors().get(i).getFullname());
+                }
+                if (book instanceof PrintedBook printedBook) {
+                    model.addRow(new Object[]{printedBook.getTitle(), authors, printedBook.getIsbn(), printedBook.getGenre(), printedBook.getFormat(), printedBook.getValue(), printedBook.getPublisher().getName(), printedBook.getCopies(), printedBook.getPages(), "-", "-", "-"});
+                }
+                if (book instanceof DigitalBook digitalBook) {
+                    model.addRow(new Object[]{digitalBook.getTitle(), authors, digitalBook.getIsbn(), digitalBook.getGenre(), digitalBook.getFormat(), digitalBook.getValue(), digitalBook.getPublisher().getName(), "-", "-", digitalBook.hasHyperlink() ? digitalBook.getHyperlink() : "No", "-", "-"});
+                }
+                if (book instanceof Audiobook audiobook) {
+                    model.addRow(new Object[]{audiobook.getTitle(), authors, audiobook.getIsbn(), audiobook.getGenre(), audiobook.getFormat(), audiobook.getValue(), audiobook.getPublisher().getName(), "-", "-", "-", audiobook.getNarrador().getFullname(), audiobook.getDuration()});
+                }
+            }
         }
     }//GEN-LAST:event_jButton15ActionPerformed
 

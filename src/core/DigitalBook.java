@@ -26,5 +26,13 @@ public class DigitalBook extends Book {
         this.hasHyperlink = true;
         this.hyperlink = hyperlink;
     }
+
+    public boolean hasHyperlink() {
+        return hasHyperlink;
+    }
+    
+    public String getHyperlink() {
+        return hyperlink;
+    }
     
 }

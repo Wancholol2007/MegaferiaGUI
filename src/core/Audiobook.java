@@ -22,5 +22,13 @@ public class Audiobook extends Book {
         
         this.narrador.addBook(this);
     }
+
+    public int getDuration() {
+        return duration;
+    }
+
+    public Narrator getNarrador() {
+        return narrador;
+    }
     
 }

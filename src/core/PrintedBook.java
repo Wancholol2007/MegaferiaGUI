@@ -20,5 +20,13 @@ public class PrintedBook extends Book {
         this.pages = pages;
         this.copies = copies;
     }
+
+    public int getPages() {
+        return pages;
+    }
+
+    public int getCopies() {
+        return copies;
+    }
     
 }
