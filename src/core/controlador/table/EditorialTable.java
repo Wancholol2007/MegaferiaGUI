@@ -14,58 +14,34 @@ import java.util.Comparator;
 
 public class EditorialTable {
 
-    public static Response updateEditorialTable(DefaultTableModel modeloTabla) {
-
+    public static Response updateEditorialTable(DefaultTableModel model) {
         try {
-            EditorialStorage almacenamientoEditorial = EditorialStorage.getInstance();
-            ArrayList<Publisher> listaEditoriales = almacenamientoEditorial.getEditoriales();
+            EditorialStorage editorialStorage = EditorialStorage.getInstance();
+            ArrayList<Publisher> editoriales = editorialStorage.getEditoriales();
 
-            // Validar si existe contenido
-            if (listaEditoriales == null || listaEditoriales.isEmpty()) {
-                return new Response(
-                    "No hay editoriales registradas para mostrar.",
-                    Status.NO_CONTENT,
-                    listaEditoriales
-                );
+            if (editoriales == null || editoriales.isEmpty()) {
+                return new Response("No editorials available to display", Status.NO_CONTENT, editoriales.clone());
             }
 
-            // Ordenar por NIT
-            listaEditoriales.sort(Comparator.comparing(Publisher::getNit));
-
-            // Limpiar tabla
-            modeloTabla.setRowCount(0);
-
-            // Poblar tabla con datos ordenados
-            for (Publisher editorial : listaEditoriales) {
-
-                String nombreCompletoGerente = FullName.unitVariables(
-                        editorial.getGerenteAsignado().getFirstname(),
-                        editorial.getGerenteAsignado().getLastname()
-                );
-
-                Object[] fila = {
-                    editorial.getNit(),
-                    editorial.getNombre(),
-                    editorial.getDireccion(),
-                    nombreCompletoGerente,
-                    editorial.getStandQuantity()
+            editoriales.sort(Comparator.comparing(Publisher::getNit));
+            model.setRowCount(0);
+            for (Publisher editorial : editoriales) {
+                Object[] rowData = {
+                        editorial.getNit(),
+                        editorial.getName(),
+                        editorial.getAddress(),
+                        FullName.unitVariables(editorial.getManager().getFirstname(),
+                                editorial.getManager().getLastname()),
+                        editorial.getStandQuantity()
                 };
-
-                modeloTabla.addRow(fila);
+                model.addRow(rowData);
             }
-
-            return new Response(
-                "Tabla de editoriales actualizada correctamente.",
-                Status.OK,
-                listaEditoriales
-            );
-
-        } catch (Exception ex) {
-            return new Response(
-                "Ocurrió un error inesperado al actualizar la tabla de editoriales.",
-                Status.INTERNAL_SERVER_ERROR
-            );
+            return new Response("Editorial table updated successfully", Status.OK, editoriales.clone());
+        } catch (Exception e) {
+            return new Response("Unexpected error", Status.INTERNAL_SERVER_ERROR);
         }
+
     }
+
 }
 

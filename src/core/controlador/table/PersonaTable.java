@@ -18,14 +18,14 @@ public class PersonaTable {
     public static Response updatePersonaTable(DefaultTableModel model) {
         try {
             PersonaStorage personaStorage = PersonaStorage.getInstance();
-            ArrayList<core.Person> personas = personaStorage.getPersonas();
+            ArrayList<Person> personas = personaStorage.getPersonas();
             if (personas == null || personas.isEmpty()) {
                 return new Response("No personas available to display", Status.NO_CONTENT);
                 
             }
             personas.sort(Comparator.comparing(Person::getId));
             model.setRowCount(0);
-            for (core.Person persona : personas) {
+            for (Person persona : personas) {
                 Object[] rowData = {
                         persona.getId(),
                         FullName.unitVariables(persona.getFirstname(), persona.getLastname()),
