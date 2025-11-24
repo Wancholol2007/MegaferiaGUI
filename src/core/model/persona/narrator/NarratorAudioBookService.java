@@ -23,7 +23,7 @@ public class NarratorAudioBookService {
     // Ejemplo de futura lógica extendida:
     public int totalAudioDuration(Narrator narrator) {
         int total = 0;
-        for (AudioBook book : narrator.getBooks()) {
+        for (AudioBook book : narrator.getAudioBooks()) {
             total += book.getDuration();
         }
         return total;

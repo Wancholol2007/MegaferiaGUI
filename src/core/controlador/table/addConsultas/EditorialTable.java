@@ -39,8 +39,8 @@ public class EditorialTable {
 
                 String gerenteCompleto;
                 gerenteCompleto = FullName.unitVariables(
-                        editorial.getGerenteAsignado().getNombres(),
-                        editorial.getGerenteAsignado().getApellidos()
+                        editorial.getGerenteAsignado().getFirstname(),
+                        editorial.getGerenteAsignado().getLastname()
                 );
 
                 Object[] fila = {
@@ -67,18 +67,4 @@ public class EditorialTable {
             );
         }
     }
-}
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
 }

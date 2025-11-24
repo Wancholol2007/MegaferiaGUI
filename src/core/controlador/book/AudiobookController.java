@@ -33,7 +33,7 @@ public class AudiobookController {
             PersonaRepositorio repoPersonas = PersonaRepositorio.getInstancia();
             EditorialRepositorio repoEditoriales = EditorialRepositorio.getInstancia();
             LibroRepositorio repoLibros = LibroRepositorio.getInstancia();
-            ArrayList<Book> coleccionLibros = repoLibros.obtenerLibros();
+            ArrayList<Book> coleccionLibros = repoLibros.getLibros();
 
             // Validación título
             if (tituloObra == null || tituloObra.isBlank()) {
@@ -56,7 +56,7 @@ public class AudiobookController {
                     return new Response("El ID del autor debe ser numérico.", Status.BAD_REQUEST);
                 }
 
-                for (Person persona : repoPersonas.obtenerPersonas()) {
+                for (Person persona : repoPersonas.getPersonas()) {
                     if (persona instanceof Author autor && autor.getId() == idAutor) {
                         listaAutores.add(autor);
                         break;
@@ -110,7 +110,7 @@ public class AudiobookController {
 
             Publisher editorialSeleccionada = null;
 
-            for (Publisher pub : repoEditoriales.obtenerEditoriales()) {
+            for (Publisher pub : repoEditoriales.getEditoriales()) {
                 if (pub.getNit().equals(nitEditorial)) {
                     editorialSeleccionada = pub;
                     break;
@@ -147,7 +147,7 @@ public class AudiobookController {
 
             Narrator narradorAsociado = null;
 
-            for (Person persona : repoPersonas.obtenerPersonas()) {
+            for (Person persona : repoPersonas.getPersonas()) {
                 if (persona instanceof Narrator narrador && narrador.getId() == idNarrador) {
                     narradorAsociado = narrador;
                     break;

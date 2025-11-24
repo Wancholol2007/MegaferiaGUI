@@ -19,7 +19,7 @@ public class Editorial {
 
         PersonaRepositorio repoPersonas = PersonaRepositorio.getInstancia();
         EditorialRepositorio repoEditoriales = EditorialRepositorio.getInstancia();
-        ArrayList<Publisher> listaEditoriales = repoEditoriales.obtenerEditoriales();
+        ArrayList<Publisher> listaEditoriales = repoEditoriales.getEditoriales();
 
         try {
             // Validación básica de campos
@@ -54,7 +54,7 @@ public class Editorial {
 
             Manager gerenteAsociado = null;
 
-            for (Person personaActual : repoPersonas.obtenerPersonas()) {
+            for (Person personaActual : repoPersonas.getPersonas()) {
                 if (personaActual instanceof Manager) {
                     if (personaActual.getId() == idGerente) {
                         gerenteAsociado = (Manager) personaActual;

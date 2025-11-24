@@ -20,7 +20,7 @@ public class EditorialRepositorio {
 }
 
 
-    public ArrayList<Publisher> obtenerEditoriales() {
+    public ArrayList<Publisher> getEditoriales() {
         return listaEditoriales;
     }
 

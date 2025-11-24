@@ -6,7 +6,7 @@ package core.model.book;
 
 import core.model.persona.author.Author;
 import core.Publisher;
-import core.Book;
+import core.model.book.Book;
 import java.util.ArrayList;
 
 /**

@@ -19,7 +19,7 @@ public class LibroRepositorio {
         return instancia;
     }
 
-    public ArrayList<Book> obtenerLibros() {
+    public ArrayList<Book> getLibros() {
         return coleccionLibros;
     }
 

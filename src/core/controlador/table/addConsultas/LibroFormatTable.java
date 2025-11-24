@@ -29,59 +29,57 @@ public class LibroFormatTable {
             // Recorrer libros y filtrar por formato
             for (core.Book libro : listaLibros) {
 
-                if (!libro.getFormat().equalsIgnoreCase(formatoSeleccionado)) {
-                    continue;
-                }
-
+                if (libro.getFormat().equalsIgnoreCase(formatoSeleccionado)) {
                 // Construcción de cadena de autores
-                String autoresCadena = FullName.unitVariables(
-                        libro.getAuthors().get(0).getNombres(),
-                        libro.getAuthors().get(0).getApellidos()
-                );
-
-                for (int i = 1; i < libro.getAuthors().size(); i++) {
-                    autoresCadena += ", " + FullName.unitVariables(
-                            libro.getAuthors().get(i).getNombres(),
-                            libro.getAuthors().get(i).getApellidos()
+                    String autoresCadena = FullName.unitVariables(
+                            libro.getAuthors().get(0).getFirstname(),
+                            libro.getAuthors().get(0).getLastname()
                     );
-                }
 
-                // Impreso
-                if (libro instanceof PrintedBook impreso) {
+                    for (int i = 1; i < libro.getAuthors().size(); i++) {
+                        autoresCadena += ", " + FullName.unitVariables(
+                                libro.getAuthors().get(i).getFirstname(),
+                                libro.getAuthors().get(i).getLastname()
+                        );
+                    }
 
-                    modeloTabla.addRow(new Object[]{
-                            impreso.getTitle(), autoresCadena, impreso.getIsbn(),
-                            impreso.getGenre(), impreso.getFormat(), impreso.getValue(),
-                            impreso.getPublisher().getNombre(), impreso.getCopies(),
-                            impreso.getPages(), "-", "-", "-"
-                    });
-                }
+                    // Impreso
+                    if (libro instanceof PrintedBook impreso) {
 
-                // Digital
-                else if (libro instanceof DigitalBook digital) {
+                        modeloTabla.addRow(new Object[]{
+                                impreso.getTitle(), autoresCadena, impreso.getIsbn(),
+                                impreso.getGenre(), impreso.getFormat(), impreso.getValue(),
+                                impreso.getPublisher().getNombre(), impreso.getCopies(),
+                                impreso.getPages(), "-", "-", "-"
+                        });
+                    }
 
-                    modeloTabla.addRow(new Object[]{
-                            digital.getTitle(), autoresCadena, digital.getIsbn(),
-                            digital.getGenre(), digital.getFormat(), digital.getValue(),
-                            digital.getPublisher().getNombre(), "-", "-",
-                            digital.hasHyperlink() ? digital.getHyperlink() : "No",
-                            "-", "-"
-                    });
-                }
+                    // Digital
+                    if (libro instanceof DigitalBook digital) {
 
-                // Audiobook
-                else if (libro instanceof AudioBook audio) {
+                        modeloTabla.addRow(new Object[]{
+                                digital.getTitle(), autoresCadena, digital.getIsbn(),
+                                digital.getGenre(), digital.getFormat(), digital.getValue(),
+                                digital.getPublisher().getNombre(), "-", "-",
+                                digital.hasHyperlink() ? digital.getHyperlink() : "No",
+                                "-", "-"
+                        });
+                    }
 
-                    modeloTabla.addRow(new Object[]{
-                            audio.getTitle(), autoresCadena, audio.getIsbn(),
-                            audio.getGenre(), audio.getFormat(), audio.getValue(),
-                            audio.getPublisher().getNombre(), "-", "-", "-",
-                            FullName.unitVariables(
-                                    audio.getNarrator().getNombres(),
-                                    audio.getNarrator().getApellidos()
-                            ),
-                            audio.getDuration()
-                    });
+                    // Audiobook
+                    if (libro instanceof AudioBook audio) {
+
+                        modeloTabla.addRow(new Object[]{
+                                audio.getTitle(), autoresCadena, audio.getIsbn(),
+                                audio.getGenre(), audio.getFormat(), audio.getValue(),
+                                audio.getPublisher().getNombre(), "-", "-", "-",
+                                FullName.unitVariables(
+                                        audio.getNarrator().getFirstname(),
+                                        audio.getNarrator().getLastname()
+                                ),
+                                audio.getDuration()
+                        });
+                    }
                 }
             }
 

@@ -19,11 +19,11 @@ public class PersonaRepositorio {
         return instancia;
     }
 
-    public ArrayList<Person> obtenerPersonas() {
+    public ArrayList<Person> getPersonas() {
         return personas;
     }
 
-    public void agregarPersona(Person persona) {
+    public void addPersona(Person persona) {
         personas.add(persona);
     }
 }

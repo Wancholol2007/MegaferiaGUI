@@ -14,7 +14,7 @@ public class ControllerAutor {
     public static Response agregarAutor(String idCadena, String nombrePrimario, String apellidoPrimario) {
 
         PersonaRepositorio repositorioPersonas = PersonaRepositorio.getInstancia();
-        ArrayList<Person> listaPersonas = repositorioPersonas.obtenerPersonas();
+        ArrayList<Person> listaPersonas = repositorioPersonas.getPersonas();
 
         try {
             long idConvertido;

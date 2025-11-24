@@ -71,8 +71,8 @@ public class AutoresConAddTable {
             for (Author autor : autoresConMayorCantidad) {
 
                 String nombreCompleto = FullName.unitVariables(
-                    autor.getNombres(),
-                    autor.getApellidos()
+                    autor.getFirstname(),
+                    autor.getLastname()
                 );
 
                 Object[] fila = {
