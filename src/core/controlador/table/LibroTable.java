@@ -16,7 +16,7 @@ public class LibroTable {
     public static Response updateLibroTable(DefaultTableModel model, String search) {
         try {
             LibroStorage libroStorage = LibroStorage.getInstance();
-            ArrayList<core.Book> libros = libroStorage.getLibros();
+            ArrayList<Books> libros = libroStorage.getLibros();
             if (libros == null || libros.isEmpty()) {
                 return new Response("No books available to display", Status.NO_CONTENT);
             }
@@ -24,7 +24,7 @@ public class LibroTable {
                 return new Response(search, Status.BAD_REQUEST);
             }
             if (search.equalsIgnoreCase("Libros Digitales")) {
-                for (core.Book libro : libros) {
+                for (Book libro : libros) {
                     if (libro instanceof DigitalBook libroDigital) {
 
                         String autores = FullName.unitVariables(libroDigital.getAuthors().get(0).getFirstname(), libroDigital.getAuthors().get(0).getLastname());

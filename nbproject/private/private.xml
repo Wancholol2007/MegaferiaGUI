@@ -3,7 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Jefferson/MegaferiaGUI/src/core/MegaferiaFrame.java</file>
+            <file>file:/C:/Users/wanch/OneDrive/Documents/GitHub/MegaferiaGUI/src/core/controlador/table/EditorialTable.java</file>
+            <file>file:/C:/Users/wanch/OneDrive/Documents/GitHub/MegaferiaGUI/src/core/controlador/table/LibroTable.java</file>
+            <file>file:/C:/Users/wanch/OneDrive/Documents/GitHub/MegaferiaGUI/src/core/controlador/table/PersonaTable.java</file>
+            <file>file:/C:/Users/wanch/OneDrive/Documents/GitHub/MegaferiaGUI/src/core/controlador/table/addConsultas/AutoresConAddTable.java</file>
+            <file>file:/C:/Users/wanch/OneDrive/Documents/GitHub/MegaferiaGUI/src/core/controlador/table/addConsultas/EditorialTable.java</file>
+            <file>file:/C:/Users/wanch/OneDrive/Documents/GitHub/MegaferiaGUI/src/core/controlador/table/addConsultas/LibroAutorTable.java</file>
+            <file>file:/C:/Users/wanch/OneDrive/Documents/GitHub/MegaferiaGUI/src/core/controlador/table/addConsultas/LibroFormatTable.java</file>
+            <file>file:/C:/Users/wanch/OneDrive/Documents/GitHub/MegaferiaGUI/src/core/model/book/Book.java</file>
         </group>
     </open-files>
 </project-private>

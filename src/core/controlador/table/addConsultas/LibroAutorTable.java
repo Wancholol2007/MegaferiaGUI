@@ -3,13 +3,13 @@ package core.controlador.table.addConsultas;
 import core.controlador.utilidades.Response;
 import core.controlador.utilidades.Status;
 
-import core.model.libro.Book;
-import core.model.libro.DigitalBook;
-import core.model.libro.PrintedBook;
-import core.model.libro.audioBook.AudioBook;
+import core.model.book.Book;
+import core.model.book.DigitalBook;
+import core.model.book.PrintedBook;
+import core.model.book.audioBook.AudioBook;
 
 import core.model.persona.Person;
-import core.model.persona.autor.Author;
+import core.model.persona.author.Author;
 import core.model.persona.utilidades.FullName;
 
 import core.model.storage.LibroStorage;
@@ -20,95 +20,60 @@ import java.util.ArrayList;
 
 public class LibroAutorTable {
 
-    public static Response updateLibroAutorConAdd(DefaultTableModel modeloTabla, String datoAutorSeleccionado) {
-
+    public static Response updateLibroAutorConAdd(DefaultTableModel model, String authorData) {
         try {
-            LibroStorage almacenamientoLibros = LibroStorage.getInstance();
-            ArrayList<Book> listaLibros = almacenamientoLibros.getLibros();
-
-            if (listaLibros == null || listaLibros.isEmpty()) {
-                return new Response(
-                    "No hay libros registrados para mostrar en relación con el autor.",
-                    Status.NO_CONTENT
-                );
+            LibroStorage libroStorage = LibroStorage.getInstance();
+            ArrayList<core.Book> libros = libroStorage.getLibros();
+            if (libros == null || libros.isEmpty()) {
+                return new Response("No books available to display for the given author", Status.NO_CONTENT);
             }
-
-            // Validación de selección
-            if (datoAutorSeleccionado == null ||
-                datoAutorSeleccionado.equalsIgnoreCase("Seleccione uno...")) {
-
-                return new Response(
-                    "Debe seleccionar un autor antes de visualizar datos.",
-                    Status.BAD_REQUEST
-                );
+            double authorId;
+            if (authorData.equalsIgnoreCase("Seleccione uno...")) {
+                return new Response("You must select an author", Status.BAD_REQUEST);
             }
-
-            // Extraer ID del autor
-            long idAutor;
-
             try {
-                idAutor = Long.parseLong(datoAutorSeleccionado.split(" - ")[0]);
-            } catch (NumberFormatException ex) {
-                return new Response(
-                    "El ID del autor no tiene un formato válido.",
-                    Status.BAD_REQUEST
-                );
+                authorId = Double.parseDouble(authorData.split(" - ")[0]);
+            } catch (NumberFormatException e) {
+                return new Response("Invalid author ID format", Status.BAD_REQUEST);
             }
-
-            // Buscar autor
-            PersonaStorage almacenamientoPersonas = PersonaStorage.getInstance();
-            Author autorSeleccionado = null;
-
-            for (Person persona : almacenamientoPersonas.getPersonas()) {
-                if (persona instanceof Author autor && autor.getId() == idAutor) {
-                    autorSeleccionado = autor;
+            Author author = null;
+            PersonaStorage personaStorage = PersonaStorage.getInstance();
+            for (Person person : personaStorage.getPersonas()) {
+                if (person instanceof Author a && a.getId() == authorId) {
+                    author = a;
                     break;
                 }
             }
-
-            if (autorSeleccionado == null) {
-                return new Response(
-                    "El autor seleccionado no está registrado.",
-                    Status.NOT_FOUND
-                );
+            if (author == null) {
+                return new Response("Author not found", Status.NOT_FOUND);
             }
-
-            // Limpiar tabla antes de llenarla
-            modeloTabla.setRowCount(0);
-
-            // Recorrer libros del autor
-            for (Book libro : autorSeleccionado.getBooks()) {
-
-                // Construir cadena de autores
-                String autoresCadena = FullName.unitVariables(
-                        libro.getAuthors().get(0).getNombres(),
-                        libro.getAuthors().get(0).getApellidos()
-                );
-
-                for (int i = 1; i < libro.getAuthors().size(); i++) {
-                    Author a = libro.getAuthors().get(i);
-                    autoresCadena += ", " + FullName.unitVariables(a.getNombres(), a.getApellidos());
+            for (Book book : author.getBooks()) {
+                String authors = FullName.unitVariables(book.getAuthors().get(0).getFirstname(), book.getAuthors().get(0).getLastname());
+                for (int i = 1; i < book.getAuthors().size(); i++) {
+                    authors += (", " + FullName.unitVariables(book.getAuthors().get(i).getFirstname(), book.getAuthors().get(i).getLastname()));
                 }
-
-                // Impreso
-                switch (libro) {
-                    case PrintedBook impreso -> modeloTabla.addRow(new Object[]{
-                        impreso.getTitle(), autoresCadena, impreso.getIsbn(),
-                        impreso.getGenre(), impreso.getFormat(), impreso.getValue(),
-                        impreso.getPublisher().getNombre(), impreso.getCopies(),
-                        impreso.getPages(), "-", "-", "-"
-                    });
-                    case DigitalBook digital -> modeloTabla.addRow(new Object[]{
-                        digital.getTitle(), autoresCadena, digital.getIsbn(),
-                        digital.getGenre(), digital.getFormat(), digital.getValue(),
-                        digital.getPublisher().getNombre(), "-", "-",
-                        digital.hasHyperlink() ? digital.getHyperlink() : "No",
-                        "-", "-"
-                    });
-                    case AudioBook audio -> modeloTabla.addRow(new Object[]{
-                        audio.getTitle(), autoresCadena, audi
-                            
-                    default -> {
-                    }
+                if (book instanceof PrintedBook printedBook) {
+                    model.addRow(new Object[] { printedBook.getTitle(), authors, printedBook.getIsbn(),
+                            printedBook.getGenre(), printedBook.getFormat(), printedBook.getValue(),
+                            printedBook.getPublisher().getName(), printedBook.getCopies(), printedBook.getPages(), "-",
+                            "-", "-" });
                 }
-
+                if (book instanceof DigitalBook digitalBook) {
+                    model.addRow(new Object[] { digitalBook.getTitle(), authors, digitalBook.getIsbn(),
+                            digitalBook.getGenre(), digitalBook.getFormat(), digitalBook.getValue(),
+                            digitalBook.getPublisher().getName(), "-", "-",
+                            digitalBook.hasHyperlink() ? digitalBook.getHyperlink() : "No", "-", "-" });
+                }
+                if (book instanceof AudioBook audiobook) {
+                    model.addRow(
+                            new Object[] { audiobook.getTitle(), authors, audiobook.getIsbn(), audiobook.getGenre(),
+                                    audiobook.getFormat(), audiobook.getValue(), audiobook.getPublisher().getName(),
+                                    "-", "-", "-", FullName.unitVariables(audiobook.getNarrator().getFirstname(), audiobook.getNarrator().getLastname()), audiobook.getDuration() });
+                }
+            }
+            return new Response("Books by author table updated successfully", Status.OK);
+        } catch (Exception e) {
+            return new Response("Unexpected error", Status.INTERNAL_SERVER_ERROR);
+        }
+    }
+}

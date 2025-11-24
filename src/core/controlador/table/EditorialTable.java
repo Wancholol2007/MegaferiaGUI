@@ -39,8 +39,8 @@ public class EditorialTable {
             for (Publisher editorial : listaEditoriales) {
 
                 String nombreCompletoGerente = FullName.unitVariables(
-                        editorial.getGerenteAsignado().getNombres(),
-                        editorial.getGerenteAsignado().getApellidos()
+                        editorial.getGerenteAsignado().getFirstname(),
+                        editorial.getGerenteAsignado().getLastname()
                 );
 
                 Object[] fila = {
