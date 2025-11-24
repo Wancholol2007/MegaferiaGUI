@@ -1,6 +1,6 @@
 package core.repositorio.persona;
 
-import core.model.persona.Person;
+import core.Person;
 import java.util.ArrayList;
 
 public class PersonaRepositorio {

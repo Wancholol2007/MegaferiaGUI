@@ -5,6 +5,6 @@ public enum Status {
     CREATED,
     BAD_REQUEST,
     NOT_FOUND,
-    INTERNAL_SERVER_ERROR
+    INTERNAL_SERVER_ERROR, NO_CONTENT
 }
 

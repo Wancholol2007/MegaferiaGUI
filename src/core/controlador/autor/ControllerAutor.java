@@ -3,8 +3,8 @@ package core.controlador.autor;
 import core.controlador.utilidades.Response;
 import core.controlador.utilidades.Status;
 
-import core.model.persona.autor.Author;
-import core.model.persona.Person;
+import core.Author;
+import core.Person;
 import core.repositorio.persona.PersonaRepositorio;
 
 import java.util.ArrayList;

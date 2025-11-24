@@ -3,9 +3,9 @@ package core.controlador.editorial;
 import core.controlador.utilidades.Response;
 import core.controlador.utilidades.Status;
 
-import core.model.editorial.Publisher;
-import core.model.persona.Person;
-import core.model.persona.manager.Manager;
+import core.Publisher;
+import core.Person;
+import core.Manager;
 
 import core.repositorio.editorial.EditorialRepositorio;
 import core.repositorio.persona.PersonaRepositorio;

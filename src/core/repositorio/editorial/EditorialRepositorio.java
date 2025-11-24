@@ -1,6 +1,6 @@
 package core.repositorio.editorial;
 
-import core.model.editorial.Publisher;
+import core.Publisher;
 import java.util.ArrayList;
 
 public class EditorialRepositorio {

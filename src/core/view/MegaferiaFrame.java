@@ -2,9 +2,18 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package core;
+package core.view;
 
 import com.formdev.flatlaf.FlatDarkLaf;
+import core.Audiobook;
+import core.Author;
+import core.Book;
+import core.DigitalBook;
+import core.Manager;
+import core.Narrator;
+import core.PrintedBook;
+import core.Publisher;
+import core.Stand;
 import java.util.ArrayList;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;

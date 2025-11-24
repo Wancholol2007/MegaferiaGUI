@@ -1,26 +1,36 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package core.model.persona;
 
+/**
+ *
+ * @author edangulo
+ */
 public abstract class Person {
+    
+    protected final long id;
+    protected String firstname;
+    protected String lastname;
 
-    private long id;
-    private String nombre;
-    private String apellido;
-
-    public Person(long id, String nombre, String apellido) {
+    public Person(long id, String firstname, String lastname) {
         this.id = id;
-        this.nombre = nombre;
-        this.apellido = apellido;
+        this.firstname = firstname;
+        this.lastname = lastname;
     }
 
     public long getId() {
         return id;
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getFirstname() {
+        return firstname;
     }
 
-    public String getApellido() {
-        return apellido;
+    public String getLastname() {
+        return lastname;
     }
+    
+
 }
